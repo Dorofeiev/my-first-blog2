@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-=j%qngy7bbo&x_dyo(e(%0ys!zna_%e%b2oas1q)3qh4(qzeh-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['dor.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",           # исправляем логи!
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -77,6 +78,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
@@ -117,8 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-
-import os   # надо проверить работоспособность!!!
+import os  # надо проверить!!!
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # добавили из методички
 
@@ -126,5 +127,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # добавили из мето
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage" # log!!!
 
 
